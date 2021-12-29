@@ -16,7 +16,8 @@ HEADERS += \
   rueda_eje.h \
   materials.h \
   function.h \
-  chess_board.h 
+  chess_board.h \
+  animationframe.h
 
 SOURCES += \
   basic_object3d.cc \
@@ -34,8 +35,9 @@ SOURCES += \
   cilindro.cc \
   eje.cc \
   rueda_eje.cc \
-  chess_board.cc 
-  
+  chess_board.cc \
+  animationframe.cc  
+
 LIBS += -L/usr/X11R6/lib64 -lGL
 
 CONFIG += c++11

@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = esqueleto_qt1.0.0
-DISTDIR = /home/carloslm/Desktop/IG-main/skeleton/.tmp/esqueleto_qt1.0.0
+DISTDIR = /home/carloslm/Desktop/IG/skeleton/.tmp/esqueleto_qt1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
@@ -67,7 +67,8 @@ SOURCES       = basic_object3d.cc \
 		cilindro.cc \
 		eje.cc \
 		rueda_eje.cc \
-		chess_board.cc moc_glwidget.cpp \
+		chess_board.cc \
+		animationframe.cc moc_glwidget.cpp \
 		moc_window.cpp
 OBJECTS       = basic_object3d.o \
 		cube.o \
@@ -85,6 +86,7 @@ OBJECTS       = basic_object3d.o \
 		eje.o \
 		rueda_eje.o \
 		chess_board.o \
+		animationframe.o \
 		moc_glwidget.o \
 		moc_window.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -144,7 +146,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -181,7 +182,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		rueda_eje.h \
 		materials.h \
 		function.h \
-		chess_board.h basic_object3d.cc \
+		chess_board.h \
+		animationframe.h basic_object3d.cc \
 		cube.cpp \
 		object3d.cc \
 		axis.cc \
@@ -196,7 +198,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		cilindro.cc \
 		eje.cc \
 		rueda_eje.cc \
-		chess_board.cc
+		chess_board.cc \
+		animationframe.cc
 QMAKE_TARGET  = esqueleto_qt
 DESTDIR       = 
 TARGET        = esqueleto_qt
@@ -265,7 +268,6 @@ Makefile: esqueleto_qt.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -344,7 +346,6 @@ Makefile: esqueleto_qt.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -380,8 +381,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents colors.h basic_object3d.h cube.h object3d.h axis.h plyobj.h revobj.h tetrahedron.h glwidget.h window.h file_ply_stl.h rueda.h cilindro.h eje.h rueda_eje.h materials.h function.h chess_board.h $(DISTDIR)/
-	$(COPY_FILE) --parents basic_object3d.cc cube.cpp object3d.cc axis.cc plyobj.cpp revobj.cpp tetrahedron.cc main.cc glwidget.cc window.cc file_ply_stl.cc rueda.cc cilindro.cc eje.cc rueda_eje.cc chess_board.cc $(DISTDIR)/
+	$(COPY_FILE) --parents colors.h basic_object3d.h cube.h object3d.h axis.h plyobj.h revobj.h tetrahedron.h glwidget.h window.h file_ply_stl.h rueda.h cilindro.h eje.h rueda_eje.h materials.h function.h chess_board.h animationframe.h $(DISTDIR)/
+	$(COPY_FILE) --parents basic_object3d.cc cube.cpp object3d.cc axis.cc plyobj.cpp revobj.cpp tetrahedron.cc main.cc glwidget.cc window.cc file_ply_stl.cc rueda.cc cilindro.cc eje.cc rueda_eje.cc chess_board.cc animationframe.cc $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -434,12 +435,12 @@ moc_glwidget.cpp: glwidget.h \
 		chess_board.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/carloslm/Desktop/IG-main/skeleton/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/carloslm/Desktop/IG-main/skeleton -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include glwidget.h -o moc_glwidget.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/carloslm/Desktop/IG/skeleton/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/carloslm/Desktop/IG/skeleton -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include glwidget.h -o moc_glwidget.cpp
 
 moc_window.cpp: window.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/carloslm/Desktop/IG-main/skeleton/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/carloslm/Desktop/IG-main/skeleton -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include window.h -o moc_window.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/carloslm/Desktop/IG/skeleton/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/carloslm/Desktop/IG/skeleton -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include window.h -o moc_window.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -473,8 +474,7 @@ object3d.o: object3d.cc object3d.h \
 		basic_object3d.h \
 		colors.h \
 		vertex.h \
-		file_ply_stl.h \
-		materials.h
+		file_ply_stl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o object3d.o object3d.cc
 
 axis.o: axis.cc axis.h \
@@ -524,6 +524,7 @@ glwidget.o: glwidget.cc glwidget.h \
 		rueda_eje.h \
 		function.h \
 		chess_board.h \
+		materials.h \
 		window.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o glwidget.o glwidget.cc
 
@@ -594,6 +595,10 @@ chess_board.o: chess_board.cc chess_board.h \
 		vertex.h \
 		cube.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o chess_board.o chess_board.cc
+
+animationframe.o: animationframe.cc animationframe.h \
+		vertex.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animationframe.o animationframe.cc
 
 moc_glwidget.o: moc_glwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_glwidget.o moc_glwidget.cpp
