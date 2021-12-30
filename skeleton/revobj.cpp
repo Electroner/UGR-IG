@@ -22,6 +22,7 @@ _revOBJ::_revOBJ(int _n)
 			this->pLine.emplace_back(temp.at(i));
 		}
 		this->Construct();
+		texture_coordinates.clear();
 	}
 }
 
@@ -36,6 +37,7 @@ _revOBJ::_revOBJ(vector<_vertex3f> _pLine, int _n)
 			this->pLine.emplace_back(_pLine.at(i));
 		}
 		this->Construct();
+		texture_coordinates.clear();
 	}
 }
 
@@ -44,6 +46,7 @@ _revOBJ::~_revOBJ()
 	Triangles.~vector();
 	Vertices.~vector();
 	pLine.~vector();
+	texture_coordinates.~vector();
 }
 
 void _revOBJ::ChangeN(int _n)
@@ -52,6 +55,7 @@ void _revOBJ::ChangeN(int _n)
 	{
 		this->n = _n;
 		this->Construct();
+		texture_coordinates.clear();
 	}
 }
 
@@ -69,6 +73,7 @@ void _revOBJ::ChangeProfile(vector<_vertex3f> _pLine)
 		this->pLine.emplace_back(_pLine.at(i));
 	}
 	this->Construct();
+	texture_coordinates.clear();
 }
 
 void _revOBJ::ChangeREV(vector<_vertex3f> _pLine, int _n)
@@ -83,6 +88,7 @@ void _revOBJ::ChangeREV(vector<_vertex3f> _pLine, int _n)
 			this->pLine.emplace_back(_pLine.at(i));
 		}
 		this->Construct();
+		texture_coordinates.clear();
 	}
 }
 
@@ -99,6 +105,7 @@ void _revOBJ::ChangeOBJ(vector<_vertex3f> _pLine, int _n, AxisRotation _axis)
 			this->pLine.emplace_back(_pLine.at(i));
 		}
 		this->Construct();
+		texture_coordinates.clear();
 	}
 }
 
@@ -313,15 +320,20 @@ void _revOBJ::constuct_texture_coordinates()
 		{
 			for (int j = 0; j < static_cast<int>(lateral.size() - 1); j++)
 			{
-				//Vertice 3
-				vert3 = (j + ((i * lateral.size()) % (lateral.size() * getN())));
-				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert3));
-				//Vertice 2
-				vert2 = (j + 1 + ((i * lateral.size()) % (lateral.size() * getN())));
-				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert2));
 				//Vertice 1
 				vert1 = ((j + lateral.size() + ((i * lateral.size()) % (lateral.size() * getN()))) % (lateral.size() * getN()));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert1));
+				//Vertice 2
+				vert2 = (j + 1 + ((i * lateral.size()) % (lateral.size() * getN())));
+				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert2));
+				//Vertice 3
+				vert3 = (j + ((i * lateral.size()) % (lateral.size() * getN())));
+				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert3));
+
+				cout << "(" << vert1 << "," << vert2 << "," << vert3 << ") \t| i:" << i << " , j:" << j << endl;
+				cout << "(" << get_coordinates_vertex(vert1)._0 << "," << get_coordinates_vertex(vert1)._1 << ")" << endl;
+				cout << "(" << get_coordinates_vertex(vert2)._0 << "," << get_coordinates_vertex(vert2)._1 << ")" << endl;
+				cout << "(" << get_coordinates_vertex(vert3)._0 << "," << get_coordinates_vertex(vert3)._1 << ")" << endl;
 
 				//vertice 1
 				vert1 = (j + 1 + ((i * lateral.size()) % (lateral.size() * getN())));
@@ -332,10 +344,15 @@ void _revOBJ::constuct_texture_coordinates()
 				//vertice 3
 				vert3 = ((j + 1 + ((lateral.size() * (i + 1)) % (lateral.size() * getN()))) % (lateral.size() * getN()));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert3));
+
+				cout << "(" << vert1 << "," << vert2 << "," << vert3 << ") \t| i:" << i << " , j:" << j << endl;
+				cout << "(" << get_coordinates_vertex(vert1)._0 << "," << get_coordinates_vertex(vert1)._1 << ")" << endl;
+				cout << "(" << get_coordinates_vertex(vert2)._0 << "," << get_coordinates_vertex(vert2)._1 << ")" << endl;
+				cout << "(" << get_coordinates_vertex(vert3)._0 << "," << get_coordinates_vertex(vert3)._1 << ")" << endl;
 			}
 		}
 	}
-	if (Tinf)
+	if (Tsup)
 	{
 		int vert1;
 		int vert2;
@@ -353,7 +370,7 @@ void _revOBJ::constuct_texture_coordinates()
 			revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert2));
 		}
 	}
-	if (Tsup)
+	if (Tinf)
 	{
 		int vert1;
 		int vert2;
