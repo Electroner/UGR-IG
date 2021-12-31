@@ -324,20 +324,20 @@ void _revOBJ::constuct_texture_coordinates()
 				vert1 = ((j + lateral.size() + ((i * lateral.size()) % (lateral.size() * getN()))));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert1));
 				//Vertice 2
-				vert2 = (j + 1 + ((i * lateral.size())));
+				vert2 = (j + 1 + (i * lateral.size()));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert2));
 				//Vertice 3
-				vert3 = (j + ((i * lateral.size())));
+				vert3 = (j + (i * lateral.size()));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert3));
 
 				//vertice 1
-				vert1 = (j + 1 + ((i * lateral.size())));
+				vert1 = (j + 1 + (i * lateral.size()));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert1));
 				//vertice 2
-				vert2 = (j + ((lateral.size() * (i + 1))));
+				vert2 = (j + (lateral.size() * (i + 1)));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert2));
 				//vertice 3
-				vert3 = ((j + 1 + ((lateral.size() * (i + 1)))));
+				vert3 = (j + 1 + (lateral.size() * (i + 1)));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert3));
 			}
 		}
