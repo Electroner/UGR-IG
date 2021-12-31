@@ -122,19 +122,23 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
 		light1_enabled = !light1_enabled;
 		break;
 
+	case Qt::Key_P:
+		perspective = !perspective;
+		break;
+
 	case Qt::Key_M:
 		QStringList items;
 		items << tr("PEARL") << tr("BRASS") << tr("RUBY") << tr("LIME");
 		bool ok;
 		string itemLabel;
-		QString item = QInputDialog::getItem(this, tr("QInputDialog::getItem()"),
-											 tr("Material:"), items, 0, false, &ok);
+		QString item = QInputDialog::getItem(this, tr("QInputDialog::getItem()"),tr("Material:"), items, 0, false, &ok);
 		if (ok && !item.isEmpty())
 		{
 			itemLabel = item.toStdString();
 		}
 		material = itemLabel;
 		break;
+	
 	}
 
 	update();
@@ -166,8 +170,11 @@ void _gl_widget::change_projection()
 
 	// formato(x_minimo,x_maximo, y_minimo, y_maximo,Front_plane, plano_traser)
 	// Front_plane>0  Back_plane>PlanoDelantero)
-	glFrustum(X_MIN, X_MAX, Y_MIN, Y_MAX, FRONT_PLANE_PERSPECTIVE,
-			  BACK_PLANE_PERSPECTIVE);
+	if(perspective){
+		glFrustum(X_MIN, X_MAX, Y_MIN, Y_MAX, FRONT_PLANE_PERSPECTIVE,BACK_PLANE_PERSPECTIVE);
+	}else{
+		glOrtho(X_MIN, X_MAX, Y_MIN, Y_MAX, FRONT_PLANE_ORTHO,BACK_PLANE_ORTHO);
+	}
 }
 
 /*****************************************************************************/ /**
@@ -721,6 +728,8 @@ void _gl_widget::initializeGL()
 	light1_enabled = true;
 
 	revOBJ.function_revobj(&RevFuncitonFX, -1, 1, 0.01, 100, true, true);
+
+	perspective = true;
 
 	QString File_name("earth.jpg");
 	QImageReader Reader(File_name);

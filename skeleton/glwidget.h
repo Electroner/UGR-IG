@@ -40,6 +40,8 @@ namespace _gl_widget_ne
 	const float Y_MAX = .1;
 	const float FRONT_PLANE_PERSPECTIVE = (X_MAX - X_MIN) / 2;
 	const float BACK_PLANE_PERSPECTIVE = 1000;
+	const float FRONT_PLANE_ORTHO=-5000;
+  	const float BACK_PLANE_ORTHO=5000;
 	const float DEFAULT_DISTANCE = 2;
 	const float ANGLE_STEP = 1;
 
@@ -147,6 +149,8 @@ private:
 	string material;
 
 	int angle_ligth;
+
+	bool perspective; //TRUE = PERSPECTIVE, FALSE = ORTHO
 };
 
 #endif
