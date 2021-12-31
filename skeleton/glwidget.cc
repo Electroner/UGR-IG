@@ -57,15 +57,18 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
 		Object = OBJECT_SPHERE;
 		break;
 	case Qt::Key_7:
-		Object = OBJECT_WHEEL;
+		Object = OBJECT_REVFX;
 		break;
 	case Qt::Key_8:
-		Object = OBJECT_EJE;
+		Object = OBJECT_WHEEL;
 		break;
 	case Qt::Key_9:
-		Object = OBJECT_RUEDA_EJE;
+		Object = OBJECT_EJE;
 		break;
 	case Qt::Key_0:
+		Object = OBJECT_RUEDA_EJE;
+		break;
+	case Qt::Key_X:
 		Object = OBJECT_CHESS_BOARD;
 		break;
 
@@ -126,6 +129,10 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
 		perspective = !perspective;
 		break;
 
+	case Qt::Key_Y:
+		Draw_axis != Draw_axis;
+		break;
+
 	case Qt::Key_M:
 		QStringList items;
 		items << tr("PEARL") << tr("BRASS") << tr("RUBY") << tr("LIME");
@@ -174,8 +181,7 @@ void _gl_widget::mouseMoveEvent(QMouseEvent *Event)
 
 void _gl_widget::wheelEvent(QWheelEvent *Event)
 {
-	const int degrees = Event->delta() / 8;
-	int steps = degrees / 15; // WHY: https://stackoverflow.com/questions/7753123/why-is-wheeldelta-120
+	const int degrees = Event->delta() / 8; // WHY: https://stackoverflow.com/questions/7753123/why-is-wheeldelta-120
 
 	if (degrees > 0)
 	{
@@ -255,7 +261,9 @@ void _gl_widget::change_observer()
 
 void _gl_widget::draw_objects()
 {
-	Axis.draw_line();
+	if(Draw_axis){
+		Axis.draw_line();
+	}
 
 	if (Draw_point)
 	{
@@ -285,6 +293,10 @@ void _gl_widget::draw_objects()
 
 		case OBJECT_SPHERE:
 			sphereOBJ.draw_point();
+			break;
+
+		case OBJECT_REVFX:
+			revFX.draw_point();
 			break;
 
 		case OBJECT_WHEEL:
@@ -334,6 +346,10 @@ void _gl_widget::draw_objects()
 			sphereOBJ.draw_line();
 			break;
 
+		case OBJECT_REVFX:
+			revFX.draw_line();
+			break;
+
 		case OBJECT_WHEEL:
 			wheel.draw_line();
 			break;
@@ -380,6 +396,10 @@ void _gl_widget::draw_objects()
 			sphereOBJ.draw_fill();
 			break;
 
+		case OBJECT_REVFX:
+			revFX.draw_fill();
+			break;
+
 		case OBJECT_WHEEL:
 			wheel.draw_fill();
 			break;
@@ -422,6 +442,10 @@ void _gl_widget::draw_objects()
 
 		case OBJECT_SPHERE:
 			sphereOBJ.draw_chess();
+			break;
+
+		case OBJECT_REVFX:
+			revFX.draw_chess();
 			break;
 
 		case OBJECT_WHEEL:
@@ -470,6 +494,10 @@ void _gl_widget::draw_objects()
 
 		case OBJECT_SPHERE:
 			sphereOBJ.draw_lighted_flat_shading();
+			break;
+
+		case OBJECT_REVFX:
+			revFX.draw_lighted_flat_shading();
 			break;
 
 		case OBJECT_WHEEL:
@@ -521,6 +549,10 @@ void _gl_widget::draw_objects()
 			sphereOBJ.draw_lighted_smooth_shading();
 			break;
 
+		case OBJECT_REVFX:
+			revFX.draw_lighted_smooth_shading();
+			break;
+
 		case OBJECT_WHEEL:
 			wheel.draw_lighted_smooth_shading();
 			break;
@@ -565,6 +597,10 @@ void _gl_widget::draw_objects()
 
 		case OBJECT_SPHERE:
 			sphereOBJ.draw_texture();
+			break;
+
+		case OBJECT_REVFX:
+			revFX.draw_texture();
 			break;
 
 		case OBJECT_WHEEL:
@@ -765,10 +801,13 @@ void _gl_widget::initializeGL()
 	Observer_distance = DEFAULT_DISTANCE;
 
 	Draw_point = false;
-	Draw_line = true;
+	Draw_line = false;
 	Draw_fill = false;
 	Draw_chess = false;
 	Draw_flat_shading = false;
+	Draw_smooth_shading = false;
+	Draw_texture = true;
+	Draw_axis = true;
 
 	animation = false;
 	Timer = new QTimer(this);
@@ -779,10 +818,10 @@ void _gl_widget::initializeGL()
 	light0_enabled = true;
 	light1_enabled = true;
 
-	revOBJ.function_revobj(&RevFuncitonFX, -1, 1, 0.01, 100, true, true);
+	revFX.function_revobj(&RevFuncitonFX, -1, 1, 0.01, 180, true, true);
 
 	perspective = true;
-
+	
 	last_x = 0;
 	last_y = 0;
 
