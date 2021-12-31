@@ -99,6 +99,10 @@ protected:
 	void paintGL() Q_DECL_OVERRIDE;
 	void initializeGL() Q_DECL_OVERRIDE;
 	void keyPressEvent(QKeyEvent *Keyevent) Q_DECL_OVERRIDE;
+	//void mousePressEvent(QMouseEvent *Event) Q_DECL_OVERRIDE;
+  	//void mouseReleaseEvent(QMouseEvent *Event) Q_DECL_OVERRIDE;
+  	void mouseMoveEvent(QMouseEvent *Event) Q_DECL_OVERRIDE;
+  	void wheelEvent(QWheelEvent *Event) Q_DECL_OVERRIDE;
 
 protected slots:
 	void tick();
@@ -145,12 +149,13 @@ private:
 
 	bool light0_enabled;
 	bool light1_enabled;
-
 	string material;
-
 	int angle_ligth;
 
 	bool perspective; //TRUE = PERSPECTIVE, FALSE = ORTHO
+
+	float last_x;	//CONTROL RELATIVE POSITION MOUASE
+	float last_y;	
 };
 
 #endif

@@ -131,16 +131,65 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
 		items << tr("PEARL") << tr("BRASS") << tr("RUBY") << tr("LIME");
 		bool ok;
 		string itemLabel;
-		QString item = QInputDialog::getItem(this, tr("QInputDialog::getItem()"),tr("Material:"), items, 0, false, &ok);
+		QString item = QInputDialog::getItem(this, tr("QInputDialog::getItem()"), tr("Material:"), items, 0, false, &ok);
 		if (ok && !item.isEmpty())
 		{
 			itemLabel = item.toStdString();
 		}
 		material = itemLabel;
 		break;
-	
 	}
 
+	update();
+}
+
+void _gl_widget::mouseMoveEvent(QMouseEvent *Event)
+{
+	int x = Event->x(), y = Event->y();
+
+	if (Event->buttons() & Qt::LeftButton)
+	{
+		if (last_x < x)
+		{
+			Observer_angle_y += ANGLE_STEP;
+		}
+		else if (last_x > x)
+		{
+			Observer_angle_y -= ANGLE_STEP;
+		}
+
+		if (last_y < y)
+		{
+			Observer_angle_x += ANGLE_STEP;
+		}
+		else if (last_y > y)
+		{
+			Observer_angle_x -= ANGLE_STEP;
+		}
+		last_x = x;
+		last_y = y;
+	}
+	update();
+}
+
+void _gl_widget::wheelEvent(QWheelEvent *Event)
+{
+	const int degrees = Event->delta() / 8;
+	int steps = degrees / 15; // WHY: https://stackoverflow.com/questions/7753123/why-is-wheeldelta-120
+
+	if (degrees > 0)
+	{
+		if (Observer_distance > 0)
+		{
+			Observer_distance -= 0.2;
+		}
+	}
+	else if (degrees < 0)
+	{
+		Observer_distance += 0.2;
+	}
+
+	Event->accept();
 	update();
 }
 
@@ -170,10 +219,13 @@ void _gl_widget::change_projection()
 
 	// formato(x_minimo,x_maximo, y_minimo, y_maximo,Front_plane, plano_traser)
 	// Front_plane>0  Back_plane>PlanoDelantero)
-	if(perspective){
-		glFrustum(X_MIN, X_MAX, Y_MIN, Y_MAX, FRONT_PLANE_PERSPECTIVE,BACK_PLANE_PERSPECTIVE);
-	}else{
-		glOrtho(X_MIN, X_MAX, Y_MIN, Y_MAX, FRONT_PLANE_ORTHO,BACK_PLANE_ORTHO);
+	if (perspective)
+	{
+		glFrustum(X_MIN, X_MAX, Y_MIN, Y_MAX, FRONT_PLANE_PERSPECTIVE, BACK_PLANE_PERSPECTIVE);
+	}
+	else
+	{
+		glOrtho(X_MIN, X_MAX, Y_MIN, Y_MAX, FRONT_PLANE_ORTHO, BACK_PLANE_ORTHO);
 	}
 }
 
@@ -730,6 +782,9 @@ void _gl_widget::initializeGL()
 	revOBJ.function_revobj(&RevFuncitonFX, -1, 1, 0.01, 100, true, true);
 
 	perspective = true;
+
+	last_x = 0;
+	last_y = 0;
 
 	QString File_name("earth.jpg");
 	QImageReader Reader(File_name);
