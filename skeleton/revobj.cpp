@@ -321,34 +321,24 @@ void _revOBJ::constuct_texture_coordinates()
 			for (int j = 0; j < static_cast<int>(lateral.size() - 1); j++)
 			{
 				//Vertice 1
-				vert1 = ((j + lateral.size() + ((i * lateral.size()) % (lateral.size() * getN()))) % (lateral.size() * getN()));
+				vert1 = ((j + lateral.size() + ((i * lateral.size()) % (lateral.size() * getN()))));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert1));
 				//Vertice 2
-				vert2 = (j + 1 + ((i * lateral.size()) % (lateral.size() * getN())));
+				vert2 = (j + 1 + ((i * lateral.size())));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert2));
 				//Vertice 3
-				vert3 = (j + ((i * lateral.size()) % (lateral.size() * getN())));
+				vert3 = (j + ((i * lateral.size())));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert3));
-
-				cout << "(" << vert1 << "," << vert2 << "," << vert3 << ") \t| i:" << i << " , j:" << j << endl;
-				cout << "(" << get_coordinates_vertex(vert1)._0 << "," << get_coordinates_vertex(vert1)._1 << ")" << endl;
-				cout << "(" << get_coordinates_vertex(vert2)._0 << "," << get_coordinates_vertex(vert2)._1 << ")" << endl;
-				cout << "(" << get_coordinates_vertex(vert3)._0 << "," << get_coordinates_vertex(vert3)._1 << ")" << endl;
 
 				//vertice 1
-				vert1 = (j + 1 + ((i * lateral.size()) % (lateral.size() * getN())));
+				vert1 = (j + 1 + ((i * lateral.size())));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert1));
 				//vertice 2
-				vert2 = (j + ((lateral.size() * (i + 1)) % (lateral.size() * getN())));
+				vert2 = (j + ((lateral.size() * (i + 1))));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert2));
 				//vertice 3
-				vert3 = ((j + 1 + ((lateral.size() * (i + 1)) % (lateral.size() * getN()))) % (lateral.size() * getN()));
+				vert3 = ((j + 1 + ((lateral.size() * (i + 1)))));
 				revobj_texture_coordinates.emplace_back(get_coordinates_vertex(vert3));
-
-				cout << "(" << vert1 << "," << vert2 << "," << vert3 << ") \t| i:" << i << " , j:" << j << endl;
-				cout << "(" << get_coordinates_vertex(vert1)._0 << "," << get_coordinates_vertex(vert1)._1 << ")" << endl;
-				cout << "(" << get_coordinates_vertex(vert2)._0 << "," << get_coordinates_vertex(vert2)._1 << ")" << endl;
-				cout << "(" << get_coordinates_vertex(vert3)._0 << "," << get_coordinates_vertex(vert3)._1 << ")" << endl;
 			}
 		}
 	}
