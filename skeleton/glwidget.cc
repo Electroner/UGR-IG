@@ -68,7 +68,7 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
 	case Qt::Key_0:
 		Object = OBJECT_RUEDA_EJE;
 		break;
-	case Qt::Key_X:
+	case Qt::Key_Apostrophe:
 		Object = OBJECT_CHESS_BOARD;
 		break;
 
