@@ -183,18 +183,34 @@ void _gl_widget::wheelEvent(QWheelEvent *Event)
 {
 	const int degrees = Event->delta() / 8; // WHY: https://stackoverflow.com/questions/7753123/why-is-wheeldelta-120
 
-	if (degrees > 0)
+	if (perspective)
 	{
-		if (Observer_distance > 0)
+		if (degrees > 0)
 		{
-			Observer_distance -= 0.2;
+			if (Observer_distance > 0)
+			{
+				Observer_distance -= 0.2;
+			}
+		}
+		else if (degrees < 0)
+		{
+			Observer_distance += 0.2;
 		}
 	}
-	else if (degrees < 0)
+	else
 	{
-		Observer_distance += 0.2;
+		if (degrees > 0)
+		{
+			if (reduction > 0.01)
+			{
+				reduction -= 0.01;
+			}
+		}
+		else if (degrees < 0.01)
+		{
+			reduction += 0.01;
+		}
 	}
-
 	Event->accept();
 	update();
 }
@@ -231,7 +247,8 @@ void _gl_widget::change_projection()
 	}
 	else
 	{
-		glOrtho(X_MIN, X_MAX, Y_MIN, Y_MAX, FRONT_PLANE_ORTHO, BACK_PLANE_ORTHO);
+
+		glOrtho(X_MIN / reduction, X_MAX / reduction, Y_MIN / reduction, Y_MAX / reduction, FRONT_PLANE_PERSPECTIVE, BACK_PLANE_PERSPECTIVE);
 	}
 }
 
@@ -261,7 +278,8 @@ void _gl_widget::change_observer()
 
 void _gl_widget::draw_objects()
 {
-	if(Draw_axis){
+	if (Draw_axis)
+	{
 		Axis.draw_line();
 	}
 
@@ -821,7 +839,7 @@ void _gl_widget::initializeGL()
 	revFX.function_revobj(&RevFuncitonFX, -1, 1, 0.01, 180, true, true);
 
 	perspective = true;
-	
+
 	last_x = 0;
 	last_y = 0;
 
