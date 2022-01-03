@@ -1,8 +1,16 @@
 #include "Aarm.h"
 
-_Aarm::_Aarm(){}
+_Aarm::_Aarm(){
+    position_pivot1 = M_PI;
+    direction_pivot1 = true;
+}
 
-_Aarm::~_Aarm(){}
+_Aarm::~_Aarm(){
+    Base.~_Abase();
+    body.~_cube();
+    pivot1.~_Cilindro();
+    pivot2.~_Cilindro();
+}
 
 void _Aarm::draw_point(){
 
