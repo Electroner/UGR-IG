@@ -17,7 +17,9 @@ HEADERS += \
   materials.h \
   function.h \
   chess_board.h \
-  animationframe.h
+  animationframe.h \
+  Abase.h \ 
+  Aarm.h
 
 SOURCES += \
   basic_object3d.cc \
@@ -36,7 +38,9 @@ SOURCES += \
   eje.cc \
   rueda_eje.cc \
   chess_board.cc \
-  animationframe.cc  
+  animationframe.cc \
+  Abase.cc \ 
+  Aarm.cc
 
 LIBS += -L/usr/X11R6/lib64 -lGL
 

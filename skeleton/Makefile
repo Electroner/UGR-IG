@@ -39,7 +39,7 @@ COMPRESS      = gzip -9f
 DISTNAME      = esqueleto_qt1.0.0
 DISTDIR = /home/carloslm/Desktop/IG/skeleton/.tmp/esqueleto_qt1.0.0
 LINK          = g++
-LFLAGS        = -Wl,-O3
+LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
@@ -68,7 +68,9 @@ SOURCES       = basic_object3d.cc \
 		eje.cc \
 		rueda_eje.cc \
 		chess_board.cc \
-		animationframe.cc moc_glwidget.cpp \
+		animationframe.cc \
+		Abase.cc \
+		Aarm.cc moc_glwidget.cpp \
 		moc_window.cpp
 OBJECTS       = basic_object3d.o \
 		cube.o \
@@ -87,6 +89,8 @@ OBJECTS       = basic_object3d.o \
 		rueda_eje.o \
 		chess_board.o \
 		animationframe.o \
+		Abase.o \
+		Aarm.o \
 		moc_glwidget.o \
 		moc_window.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -184,7 +188,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		materials.h \
 		function.h \
 		chess_board.h \
-		animationframe.h basic_object3d.cc \
+		animationframe.h \
+		Abase.h \
+		Aarm.h basic_object3d.cc \
 		cube.cpp \
 		object3d.cc \
 		axis.cc \
@@ -200,7 +206,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		eje.cc \
 		rueda_eje.cc \
 		chess_board.cc \
-		animationframe.cc
+		animationframe.cc \
+		Abase.cc \
+		Aarm.cc
 QMAKE_TARGET  = esqueleto_qt
 DESTDIR       = 
 TARGET        = esqueleto_qt
@@ -384,8 +392,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents colors.h basic_object3d.h cube.h object3d.h axis.h plyobj.h revobj.h tetrahedron.h glwidget.h window.h file_ply_stl.h rueda.h cilindro.h eje.h rueda_eje.h materials.h function.h chess_board.h animationframe.h $(DISTDIR)/
-	$(COPY_FILE) --parents basic_object3d.cc cube.cpp object3d.cc axis.cc plyobj.cpp revobj.cpp tetrahedron.cc main.cc glwidget.cc window.cc file_ply_stl.cc rueda.cc cilindro.cc eje.cc rueda_eje.cc chess_board.cc animationframe.cc $(DISTDIR)/
+	$(COPY_FILE) --parents colors.h basic_object3d.h cube.h object3d.h axis.h plyobj.h revobj.h tetrahedron.h glwidget.h window.h file_ply_stl.h rueda.h cilindro.h eje.h rueda_eje.h materials.h function.h chess_board.h animationframe.h Abase.h Aarm.h $(DISTDIR)/
+	$(COPY_FILE) --parents basic_object3d.cc cube.cpp object3d.cc axis.cc plyobj.cpp revobj.cpp tetrahedron.cc main.cc glwidget.cc window.cc file_ply_stl.cc rueda.cc cilindro.cc eje.cc rueda_eje.cc chess_board.cc animationframe.cc Abase.cc Aarm.cc $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -436,6 +444,8 @@ moc_glwidget.cpp: glwidget.h \
 		rueda_eje.h \
 		function.h \
 		chess_board.h \
+		Abase.h \
+		animationframe.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/carloslm/Desktop/IG/skeleton/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/carloslm/Desktop/IG/skeleton -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include glwidget.h -o moc_glwidget.cpp
@@ -527,6 +537,8 @@ glwidget.o: glwidget.cc glwidget.h \
 		rueda_eje.h \
 		function.h \
 		chess_board.h \
+		Abase.h \
+		animationframe.h \
 		materials.h \
 		window.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o glwidget.o glwidget.cc
@@ -547,7 +559,9 @@ window.o: window.cc window.h \
 		eje.h \
 		rueda_eje.h \
 		function.h \
-		chess_board.h
+		chess_board.h \
+		Abase.h \
+		animationframe.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o window.o window.cc
 
 file_ply_stl.o: file_ply_stl.cc file_ply_stl.h \
@@ -602,6 +616,25 @@ chess_board.o: chess_board.cc chess_board.h \
 animationframe.o: animationframe.cc animationframe.h \
 		vertex.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animationframe.o animationframe.cc
+
+Abase.o: Abase.cc Abase.h \
+		cube.h \
+		object3d.h \
+		basic_object3d.h \
+		colors.h \
+		vertex.h \
+		animationframe.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Abase.o Abase.cc
+
+Aarm.o: Aarm.cc Aarm.h \
+		cube.h \
+		object3d.h \
+		basic_object3d.h \
+		colors.h \
+		vertex.h \
+		cilindro.h \
+		revobj.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Aarm.o Aarm.cc
 
 moc_glwidget.o: moc_glwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_glwidget.o moc_glwidget.cpp

@@ -30,6 +30,7 @@
 #include "rueda_eje.h"
 #include "function.h"
 #include "chess_board.h"
+#include  "Abase.h"
 
 namespace _gl_widget_ne
 {
@@ -63,7 +64,8 @@ namespace _gl_widget_ne
 		OBJECT_WHEEL,
 		OBJECT_EJE,
 		OBJECT_RUEDA_EJE,
-		OBJECT_CHESS_BOARD
+		OBJECT_CHESS_BOARD,
+		OBJECT_ABASE
 	} _object;
 }
 
@@ -122,6 +124,8 @@ private:
 	_rueda wheel;
 	_eje eje;
 	_rueda_eje rueda_eje;
+
+	_Abase abase;
 
 	_gl_widget_ne::_object Object;
 

@@ -2,6 +2,7 @@
 #define ABASE_H
 
 #include "cube.h"
+#include "animationframe.h"
 
 class _Abase
 {
@@ -10,10 +11,9 @@ private:
     _cube b;
     _cube c;
     _cube d;
-    _cube base1;
-    _cube base2;
-    _cube base3;
-    _cube base4;
+    _cube base;
+
+    //AnimationFrame animation;
 
 public:
     _Abase();

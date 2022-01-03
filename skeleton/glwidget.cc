@@ -44,7 +44,7 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
 		Object = OBJECT_CUBE;
 		break;
 	case Qt::Key_3:
-		plyobj.File((QFileDialog::getOpenFileName(this, tr("Open PLY"), "/", tr("PLY Files (*.ply)"))).toStdString());
+		plyobj.File((QFileDialog::getOpenFileName(this, tr("Open PLY"), "~", tr("PLY Files (*.ply)"))).toStdString());
 		Object = OBJECT_PLY;
 		break;
 	case Qt::Key_4:
@@ -133,6 +133,14 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
 		Draw_axis != Draw_axis;
 		break;
 
+	case Qt::Key_Z:
+		Object = OBJECT_ABASE;
+		break;
+
+	case Qt::Key_Escape:
+		exit(0);
+		break;
+
 	case Qt::Key_M:
 		QStringList items;
 		items << tr("PEARL") << tr("BRASS") << tr("RUBY") << tr("LIME");
@@ -145,8 +153,8 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
 		}
 		material = itemLabel;
 		break;
-	}
 
+	}
 	update();
 }
 
@@ -582,6 +590,10 @@ void _gl_widget::draw_objects()
 		case OBJECT_RUEDA_EJE:
 			rueda_eje.draw_lighted_smooth_shading();
 			break;
+		
+		case OBJECT_ABASE:
+			abase.draw_lighted_smooth_shading();
+			break;
 
 		default:
 			break;
@@ -823,8 +835,8 @@ void _gl_widget::initializeGL()
 	Draw_fill = false;
 	Draw_chess = false;
 	Draw_flat_shading = false;
-	Draw_smooth_shading = false;
-	Draw_texture = true;
+	Draw_smooth_shading = true;
+	Draw_texture = false;
 	Draw_axis = true;
 
 	animation = false;
@@ -842,6 +854,8 @@ void _gl_widget::initializeGL()
 
 	last_x = 0;
 	last_y = 0;
+
+	Object = OBJECT_ABASE;
 
 	QString File_name("earth.jpg");
 	QImageReader Reader(File_name);
