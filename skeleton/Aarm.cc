@@ -2,9 +2,7 @@
 #include <iostream>
 _Aarm::_Aarm(){
     position_pivot1 = M_PI;
-    position_pivot2 = 0;
-    direction_pivot1 = true;
-    direction_pivot2 = true;
+    position_pivot2 = -M_PI;
 }
 
 _Aarm::~_Aarm(){
@@ -35,6 +33,12 @@ void _Aarm::draw_lighted_flat_shading(){
 }
 
 void _Aarm::draw_lighted_smooth_shading(){
+    
+    float angulo = -atan(cos(position_pivot1)/sin(position_pivot2))*(180/M_PI);
+    if(position_pivot2 > 0){
+        angulo = -atan(cos(position_pivot1)/sin(position_pivot2))*(180/M_PI)+180;
+    }
+
     Base.draw_lighted_smooth_shading();
     glMatrixMode(GL_MODELVIEW);
     
@@ -64,7 +68,7 @@ void _Aarm::draw_lighted_smooth_shading(){
 
     glPushMatrix();
     glTranslatef(0, 0.1, sin(position_pivot2)/2);
-    glRotated(cos(position_pivot1)*90, 0, 1, 0);
+    glRotated(angulo, 0, 1, 0);
     glTranslated(0,0,0.95);
     glScalef(0.1,0.1,2);
     body.draw_lighted_smooth_shading();
@@ -74,6 +78,7 @@ void _Aarm::draw_lighted_smooth_shading(){
     cout<<"position_pivot2: "<<position_pivot2<<endl;
     cout<<"pivot1 cos"<< cos(position_pivot1)<<endl;
     cout<<"pivot2 sin"<< sin(position_pivot2)<<endl;
+    cout<<"Angulo: "<<angulo<<endl;
 }
 
 void _Aarm::draw_texture(){
@@ -81,26 +86,12 @@ void _Aarm::draw_texture(){
 }
 
 void _Aarm::update(float _step){
-    if(direction_pivot1){
-        position_pivot1 -= _step;
-        if(position_pivot1 >= M_PI){
-            direction_pivot1 = false;
-        }
-    }else{
-        position_pivot1 += _step;
-        if(position_pivot1 <= 0){
-            direction_pivot1 = true;
-        }
+    position_pivot1 += _step;
+    position_pivot2 += _step;
+    if(position_pivot1 >= M_PI){
+        position_pivot1 = -M_PI;
     }
-    if(direction_pivot2){
-        position_pivot2 -= _step;
-        if(position_pivot2 >= M_PI){
-            direction_pivot2 = false;
-        }
-    }else{
-        position_pivot2 += _step;
-        if(position_pivot2 <= 0){
-            direction_pivot2 = true;
-        }
+    if(position_pivot2 >= M_PI){
+        position_pivot2 = -M_PI;
     }
 }

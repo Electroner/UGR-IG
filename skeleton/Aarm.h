@@ -21,10 +21,6 @@ private:
 
     float position_pivot1;
     float position_pivot2;
-    
-protected:
-    bool direction_pivot1;
-    bool direction_pivot2;
 
 public:
     _Aarm();
@@ -37,7 +33,7 @@ public:
     void draw_lighted_flat_shading();
     void draw_lighted_smooth_shading();
     void draw_texture();
-    void update(float _step=0.025);
+    void update(float _step=0.01);
 };
 
 #endif
