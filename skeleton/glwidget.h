@@ -30,8 +30,8 @@
 #include "rueda_eje.h"
 #include "function.h"
 #include "chess_board.h"
-#include  "Abase.h"
-
+#include "Abase.h"
+#include "Aarm.h"
 namespace _gl_widget_ne
 {
 
@@ -93,7 +93,6 @@ public:
 	void build_material(string _material);
 
 	void set_animation();
-	
 
 protected:
 	void resizeGL(int Width1, int Height1) Q_DECL_OVERRIDE;
@@ -125,7 +124,7 @@ private:
 	_eje eje;
 	_rueda_eje rueda_eje;
 
-	_Abase abase;
+	_Aarm abase;
 
 	_gl_widget_ne::_object Object;
 

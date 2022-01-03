@@ -796,6 +796,7 @@ void _gl_widget::tick()
 	{
 		angle_ligth = (angle_ligth < 360) ? angle_ligth += 5 : angle_ligth = 0;
 	}
+	abase.update();
 	update();
 }
 

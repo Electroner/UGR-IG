@@ -3,6 +3,8 @@
 
 #include "cube.h"
 #include "cilindro.h"
+#include "Abase.h"
+#include "math.h"
 
 class _Aarm
 {
@@ -10,6 +12,16 @@ private:
     _cube body;
     _Cilindro pivot1;
     _Cilindro pivot2;
+
+    _Abase Base;
+
+    //De 0 a PI
+
+    float position_pivot1;
+    float position_pivot2;
+    
+protected:
+    bool direction_pivot1;
 
 public:
     _Aarm();
@@ -22,6 +34,7 @@ public:
     void draw_lighted_flat_shading();
     void draw_lighted_smooth_shading();
     void draw_texture();
+    void update();
 };
 
 #endif
