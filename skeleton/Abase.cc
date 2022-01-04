@@ -57,3 +57,7 @@ void _Abase::draw_lighted_smooth_shading(){
 void _Abase::draw_texture(){
 
 }
+
+void _Abase::update(){
+
+}

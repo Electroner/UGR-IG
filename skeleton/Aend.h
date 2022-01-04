@@ -1,25 +1,27 @@
-#ifndef ATIP_H
-#define ATIP_H
+#ifndef AEND_H
+#define AEND_H
 
 #include "cube.h"
 #include "cilindro.h"
 #include "esfera.h"
 #include "Abase.h"
 #include "math.h"
-#include "function.h"
+#include "Atip.h"
 
-class _Atip
+class _Aend
 {
 private:
-    _Esfera Body;
-    _Cilindro Joint;
-    _Cilindro Pencil;
-    _revOBJ Tip;
+    _Esfera body;
+    _Cilindro connection;
+
+    _Atip pencil;
+
+    float angulo;
+    float position;
 
 public:
-
-    _Atip();
-    ~_Atip();
+    _Aend();
+    ~_Aend();
 
     void draw_point();
     void draw_line();
@@ -28,8 +30,8 @@ public:
     void draw_lighted_flat_shading();
     void draw_lighted_smooth_shading();
     void draw_texture();
-
+    
     void update();
 };
 
-#endif
+#endif  // AEND_H

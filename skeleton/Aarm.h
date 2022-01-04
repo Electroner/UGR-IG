@@ -22,6 +22,11 @@ private:
     float position_pivot1;
     float position_pivot2;
 
+    float angulo;
+
+    float cosposition1;
+    float sinposition2;
+
 public:
     _Aarm();
     ~_Aarm();
@@ -33,6 +38,7 @@ public:
     void draw_lighted_flat_shading();
     void draw_lighted_smooth_shading();
     void draw_texture();
+    
     void update(float _step=0.01);
 };
 

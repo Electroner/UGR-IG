@@ -34,6 +34,7 @@
 #include "Abase.h"
 #include "Aarm.h"
 #include "Atip.h"
+#include "Aend.h"
 
 namespace _gl_widget_ne
 {
@@ -127,7 +128,7 @@ private:
 	_eje eje;
 	_rueda_eje rueda_eje;
 
-	_Atip abase;
+	_Aarm abase;
 
 	_gl_widget_ne::_object Object;
 

@@ -21,7 +21,8 @@ HEADERS += \
   animationframe.h \
   Abase.h \ 
   Aarm.h \
-  Atip.h 
+  Atip.h \
+  Aend.h 
 
 SOURCES += \
   basic_object3d.cc \
@@ -44,7 +45,8 @@ SOURCES += \
   animationframe.cc \
   Abase.cc \ 
   Aarm.cc \
-  Atip.cc
+  Atip.cc  \
+  Aend.cc
 
 LIBS += -L/usr/X11R6/lib64 -lGL
 
