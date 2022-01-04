@@ -11,23 +11,108 @@ _Aend::~_Aend(){
 }
 
 void _Aend::draw_point(){
+    glPushMatrix();
+    glScalef(0.2,0.2,0.2);
+    body.draw_point();
+    glPopMatrix();
 
+    glPushMatrix();
+    glRotated(angulo,0,0,1);
+    glTranslatef(0.2, 0, 0);
+    pencil.draw_point();
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotated(angulo,0,0,1);
+    glRotated(90,0,0,1);
+    glTranslated(0, -0.1, 0);
+    glScalef(0.05, 0.2, 0.05);
+    connection.draw_point();
+    glPopMatrix();
 }
 
 void _Aend::draw_line(){
+    glPushMatrix();
+    glScalef(0.2,0.2,0.2);
+    body.draw_line();
+    glPopMatrix();
 
+    glPushMatrix();
+    glRotated(angulo,0,0,1);
+    glTranslatef(0.2, 0, 0);
+    pencil.draw_line();
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotated(angulo,0,0,1);
+    glRotated(90,0,0,1);
+    glTranslated(0, -0.1, 0);
+    glScalef(0.05, 0.2, 0.05);
+    connection.draw_line();
+    glPopMatrix();
 }
 
 void _Aend::draw_fill(){
+    glPushMatrix();
+    glScalef(0.2,0.2,0.2);
+    body.draw_fill();
+    glPopMatrix();
 
+    glPushMatrix();
+    glRotated(angulo,0,0,1);
+    glTranslatef(0.2, 0, 0);
+    pencil.draw_fill();
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotated(angulo,0,0,1);
+    glRotated(90,0,0,1);
+    glTranslated(0, -0.1, 0);
+    glScalef(0.05, 0.2, 0.05);
+    connection.draw_fill();
+    glPopMatrix();
 }
 
 void _Aend::draw_chess(){
+    glPushMatrix();
+    glScalef(0.2,0.2,0.2);
+    body.draw_chess();
+    glPopMatrix();
 
+    glPushMatrix();
+    glRotated(angulo,0,0,1);
+    glTranslatef(0.2, 0, 0);
+    pencil.draw_chess();
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotated(angulo,0,0,1);
+    glRotated(90,0,0,1);
+    glTranslated(0, -0.1, 0);
+    glScalef(0.05, 0.2, 0.05);
+    connection.draw_chess();
+    glPopMatrix();
 }
 
 void _Aend::draw_lighted_flat_shading(){
+    glPushMatrix();
+    glScalef(0.2,0.2,0.2);
+    body.draw_lighted_flat_shading();
+    glPopMatrix();
 
+    glPushMatrix();
+    glRotated(angulo,0,0,1);
+    glTranslatef(0.2, 0, 0);
+    pencil.draw_lighted_flat_shading();
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotated(angulo,0,0,1);
+    glRotated(90,0,0,1);
+    glTranslated(0, -0.1, 0);
+    glScalef(0.05, 0.2, 0.05);
+    connection.draw_lighted_flat_shading();
+    glPopMatrix();
 }
 
 void  _Aend::draw_lighted_smooth_shading(){
@@ -52,7 +137,24 @@ void  _Aend::draw_lighted_smooth_shading(){
 }
 
 void _Aend::draw_texture(){
+    glPushMatrix();
+    glScalef(0.2,0.2,0.2);
+    body.draw_texture();
+    glPopMatrix();
 
+    glPushMatrix();
+    glRotated(angulo,0,0,1);
+    glTranslatef(0.2, 0, 0);
+    pencil.draw_texture();
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotated(angulo,0,0,1);
+    glRotated(90,0,0,1);
+    glTranslated(0, -0.1, 0);
+    glScalef(0.05, 0.2, 0.05);
+    connection.draw_texture();
+    glPopMatrix();
 }
 
 void  _Aend::update(){

@@ -62,7 +62,7 @@ _window::_window()
   File_menu->addAction(Exit);
   File_menu->setAttribute(Qt::WA_AlwaysShowToolTips);
 
-  setWindowTitle(tr("Práctica 4"));
+  setWindowTitle(tr("Práctica 5"));
 
   resize(800,800);
 }
