@@ -33,6 +33,7 @@
 #include "chess_board.h"
 #include "Abase.h"
 #include "Aarm.h"
+#include "Atip.h"
 
 namespace _gl_widget_ne
 {
