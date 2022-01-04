@@ -36,7 +36,6 @@ void _Aarm::draw_lighted_flat_shading()
 
 void _Aarm::draw_lighted_smooth_shading()
 {
-    Base.draw_lighted_smooth_shading();
     glMatrixMode(GL_MODELVIEW);
 
     glPushMatrix();

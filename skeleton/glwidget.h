@@ -35,6 +35,7 @@
 #include "Aarm.h"
 #include "Atip.h"
 #include "Aend.h"
+#include "Acompass.h"
 
 namespace _gl_widget_ne
 {
@@ -69,7 +70,11 @@ namespace _gl_widget_ne
 		OBJECT_EJE,
 		OBJECT_RUEDA_EJE,
 		OBJECT_CHESS_BOARD,
-		OBJECT_ABASE
+		OBJECT_COMPASS,
+		OBJECT_ARM,
+		OBJECT_END,
+		OBJECT_TIP,
+		OBJECT_BASE
 	} _object;
 }
 
@@ -128,7 +133,11 @@ private:
 	_eje eje;
 	_rueda_eje rueda_eje;
 
-	_Aarm abase;
+	_Acompass Compass;
+	_Aarm Arm;
+	_Aend End;
+	_Atip Tip;
+	_Abase Base;
 
 	_gl_widget_ne::_object Object;
 

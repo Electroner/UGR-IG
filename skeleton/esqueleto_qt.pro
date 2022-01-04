@@ -22,7 +22,8 @@ HEADERS += \
   Abase.h \ 
   Aarm.h \
   Atip.h \
-  Aend.h 
+  Aend.h \
+  Acompass.h 
 
 SOURCES += \
   basic_object3d.cc \
@@ -46,7 +47,8 @@ SOURCES += \
   Abase.cc \ 
   Aarm.cc \
   Atip.cc  \
-  Aend.cc
+  Aend.cc \
+  Acompass.cc
 
 LIBS += -L/usr/X11R6/lib64 -lGL
 

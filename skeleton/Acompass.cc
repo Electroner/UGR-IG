@@ -1,0 +1,48 @@
+#include "Acompass.h"
+
+_Acompass::_Acompass()
+{
+}
+
+_Acompass::~_Acompass()
+{
+    Base.~_Abase();
+    Arm.~_Aarm();
+}
+
+void _Acompass::draw_point()
+{
+
+}
+
+void _Acompass::draw_line()
+{
+}
+
+void _Acompass::draw_fill()
+{
+}
+
+void _Acompass::draw_chess()
+{
+}
+
+void _Acompass::draw_lighted_flat_shading()
+{
+}
+
+void _Acompass::draw_lighted_smooth_shading()
+{
+    Base.draw_lighted_smooth_shading();
+    Arm.draw_lighted_smooth_shading();
+}
+
+void _Acompass::draw_texture()
+{
+}
+
+void _Acompass::update()
+{
+    Base.update();
+    Arm.update();
+}

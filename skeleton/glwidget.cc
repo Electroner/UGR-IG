@@ -134,7 +134,19 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
 		break;
 
 	case Qt::Key_Z:
-		Object = OBJECT_ABASE;
+		Object = OBJECT_COMPASS;
+		break;
+	case Qt::Key_X:
+		Object = OBJECT_ARM;
+		break;
+	case Qt::Key_C:
+		Object = OBJECT_END;
+		break;
+	case Qt::Key_V:
+		Object = OBJECT_TIP;
+		break;
+	case Qt::Key_B:
+		Object = OBJECT_BASE;
 		break;
 
 	case Qt::Key_Escape:
@@ -337,6 +349,22 @@ void _gl_widget::draw_objects()
 			rueda_eje.draw_point();
 			break;
 
+		case OBJECT_COMPASS:
+			Compass.draw_point();
+			break;
+		case OBJECT_ARM:
+			Arm.draw_point();
+			break;
+		case OBJECT_END:
+			End.draw_point();
+			break;
+		case OBJECT_TIP:
+			Tip.draw_point();
+			break;
+		case OBJECT_BASE:
+			Base.draw_point();
+			break;
+
 		default:
 			break;
 		}
@@ -386,6 +414,22 @@ void _gl_widget::draw_objects()
 
 		case OBJECT_RUEDA_EJE:
 			rueda_eje.draw_line();
+			break;
+
+		case OBJECT_COMPASS:
+			Compass.draw_line();
+			break;
+		case OBJECT_ARM:
+			Arm.draw_line();
+			break;
+		case OBJECT_END:
+			End.draw_line();
+			break;
+		case OBJECT_TIP:
+			Tip.draw_line();
+			break;
+		case OBJECT_BASE:
+			Base.draw_line();
 			break;
 
 		default:
@@ -438,6 +482,22 @@ void _gl_widget::draw_objects()
 			rueda_eje.draw_fill();
 			break;
 
+		case OBJECT_COMPASS:
+			Compass.draw_fill();
+			break;
+		case OBJECT_ARM:
+			Arm.draw_fill();
+			break;
+		case OBJECT_END:
+			End.draw_fill();
+			break;
+		case OBJECT_TIP:
+			Tip.draw_fill();
+			break;
+		case OBJECT_BASE:
+			Base.draw_fill();
+			break;
+
 		default:
 			break;
 		}
@@ -484,6 +544,22 @@ void _gl_widget::draw_objects()
 
 		case OBJECT_RUEDA_EJE:
 			rueda_eje.draw_chess();
+			break;
+
+		case OBJECT_COMPASS:
+			Compass.draw_chess();
+			break;
+		case OBJECT_ARM:
+			Arm.draw_chess();
+			break;
+		case OBJECT_END:
+			End.draw_chess();
+			break;
+		case OBJECT_TIP:
+			Tip.draw_chess();
+			break;
+		case OBJECT_BASE:
+			Base.draw_chess();
 			break;
 
 		default:
@@ -536,6 +612,22 @@ void _gl_widget::draw_objects()
 
 		case OBJECT_RUEDA_EJE:
 			rueda_eje.draw_lighted_flat_shading();
+			break;
+
+		case OBJECT_COMPASS:
+			Compass.draw_lighted_flat_shading();
+			break;
+		case OBJECT_ARM:
+			Arm.draw_lighted_flat_shading();
+			break;
+		case OBJECT_END:
+			End.draw_lighted_flat_shading();
+			break;
+		case OBJECT_TIP:
+			Tip.draw_lighted_flat_shading();
+			break;
+		case OBJECT_BASE:
+			Base.draw_lighted_flat_shading();
 			break;
 
 		default:
@@ -591,8 +683,20 @@ void _gl_widget::draw_objects()
 			rueda_eje.draw_lighted_smooth_shading();
 			break;
 		
-		case OBJECT_ABASE:
-			abase.draw_lighted_smooth_shading();
+		case OBJECT_COMPASS:
+			Compass.draw_lighted_smooth_shading();
+			break;
+		case OBJECT_ARM:
+			Arm.draw_lighted_smooth_shading();
+			break;
+		case OBJECT_END:
+			End.draw_lighted_smooth_shading();
+			break;
+		case OBJECT_TIP:
+			Tip.draw_lighted_smooth_shading();
+			break;
+		case OBJECT_BASE:
+			Base.draw_lighted_smooth_shading();
 			break;
 
 		default:
@@ -647,6 +751,22 @@ void _gl_widget::draw_objects()
 
 		case OBJECT_CHESS_BOARD:
 			chess_board.draw_texture();
+			break;
+
+		case OBJECT_COMPASS:
+			Compass.draw_texture();
+			break;
+		case OBJECT_ARM:
+			Arm.draw_texture();
+			break;
+		case OBJECT_END:
+			End.draw_texture();
+			break;
+		case OBJECT_TIP:
+			Tip.draw_texture();
+			break;
+		case OBJECT_BASE:
+			Base.draw_texture();
 			break;
 
 		default:
@@ -796,7 +916,11 @@ void _gl_widget::tick()
 	{
 		angle_ligth = (angle_ligth < 360) ? angle_ligth += 5 : angle_ligth = 0;
 	}
-	abase.update();
+	Compass.update();
+	Arm.update();
+	End.update();
+	Tip.update();
+	Base.update();
 	update();
 }
 
@@ -856,9 +980,9 @@ void _gl_widget::initializeGL()
 	last_x = 0;
 	last_y = 0;
 
-	Object = OBJECT_ABASE;
+	Object = OBJECT_COMPASS;
 
-	QString File_name("earth.jpg");
+	QString File_name("./textures/earth.jpg");
 	QImageReader Reader(File_name);
 	Reader.setAutoTransform(true);
 	Image = Reader.read();

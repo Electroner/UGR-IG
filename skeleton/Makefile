@@ -73,7 +73,8 @@ SOURCES       = basic_object3d.cc \
 		Abase.cc \
 		Aarm.cc \
 		Atip.cc \
-		Aend.cc moc_glwidget.cpp \
+		Aend.cc \
+		Acompass.cc moc_glwidget.cpp \
 		moc_window.cpp
 OBJECTS       = basic_object3d.o \
 		cube.o \
@@ -97,6 +98,7 @@ OBJECTS       = basic_object3d.o \
 		Aarm.o \
 		Atip.o \
 		Aend.o \
+		Acompass.o \
 		moc_glwidget.o \
 		moc_window.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -199,7 +201,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		Abase.h \
 		Aarm.h \
 		Atip.h \
-		Aend.h basic_object3d.cc \
+		Aend.h \
+		Acompass.h basic_object3d.cc \
 		cube.cpp \
 		object3d.cc \
 		axis.cc \
@@ -220,7 +223,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		Abase.cc \
 		Aarm.cc \
 		Atip.cc \
-		Aend.cc
+		Aend.cc \
+		Acompass.cc
 QMAKE_TARGET  = esqueleto_qt
 DESTDIR       = 
 TARGET        = esqueleto_qt
@@ -404,8 +408,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents colors.h basic_object3d.h cube.h object3d.h axis.h plyobj.h revobj.h tetrahedron.h glwidget.h window.h file_ply_stl.h rueda.h cilindro.h esfera.h eje.h rueda_eje.h materials.h function.h chess_board.h animationframe.h Abase.h Aarm.h Atip.h Aend.h $(DISTDIR)/
-	$(COPY_FILE) --parents basic_object3d.cc cube.cpp object3d.cc axis.cc plyobj.cpp revobj.cpp tetrahedron.cc main.cc glwidget.cc window.cc file_ply_stl.cc rueda.cc cilindro.cc esfera.cc eje.cc rueda_eje.cc chess_board.cc animationframe.cc Abase.cc Aarm.cc Atip.cc Aend.cc $(DISTDIR)/
+	$(COPY_FILE) --parents colors.h basic_object3d.h cube.h object3d.h axis.h plyobj.h revobj.h tetrahedron.h glwidget.h window.h file_ply_stl.h rueda.h cilindro.h esfera.h eje.h rueda_eje.h materials.h function.h chess_board.h animationframe.h Abase.h Aarm.h Atip.h Aend.h Acompass.h $(DISTDIR)/
+	$(COPY_FILE) --parents basic_object3d.cc cube.cpp object3d.cc axis.cc plyobj.cpp revobj.cpp tetrahedron.cc main.cc glwidget.cc window.cc file_ply_stl.cc rueda.cc cilindro.cc esfera.cc eje.cc rueda_eje.cc chess_board.cc animationframe.cc Abase.cc Aarm.cc Atip.cc Aend.cc Acompass.cc $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -460,7 +464,9 @@ moc_glwidget.cpp: glwidget.h \
 		Abase.h \
 		animationframe.h \
 		Aarm.h \
+		Aend.h \
 		Atip.h \
+		Acompass.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/carloslm/Desktop/IG/skeleton/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/carloslm/Desktop/IG/skeleton -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include glwidget.h -o moc_glwidget.cpp
@@ -556,7 +562,9 @@ glwidget.o: glwidget.cc glwidget.h \
 		Abase.h \
 		animationframe.h \
 		Aarm.h \
+		Aend.h \
 		Atip.h \
+		Acompass.h \
 		materials.h \
 		window.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o glwidget.o glwidget.cc
@@ -582,7 +590,9 @@ window.o: window.cc window.h \
 		Abase.h \
 		animationframe.h \
 		Aarm.h \
-		Atip.h
+		Aend.h \
+		Atip.h \
+		Acompass.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o window.o window.cc
 
 file_ply_stl.o: file_ply_stl.cc file_ply_stl.h \
@@ -664,7 +674,11 @@ Aarm.o: Aarm.cc Aarm.h \
 		cilindro.h \
 		revobj.h \
 		Abase.h \
-		animationframe.h
+		animationframe.h \
+		Aend.h \
+		esfera.h \
+		Atip.h \
+		function.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Aarm.o Aarm.cc
 
 Atip.o: Atip.cc Atip.h \
@@ -695,6 +709,23 @@ Aend.o: Aend.cc Aend.h \
 		Atip.h \
 		function.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Aend.o Aend.cc
+
+Acompass.o: Acompass.cc Acompass.h \
+		Aarm.h \
+		cube.h \
+		object3d.h \
+		basic_object3d.h \
+		colors.h \
+		vertex.h \
+		cilindro.h \
+		revobj.h \
+		Abase.h \
+		animationframe.h \
+		Aend.h \
+		esfera.h \
+		Atip.h \
+		function.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Acompass.o Acompass.cc
 
 moc_glwidget.o: moc_glwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_glwidget.o moc_glwidget.cpp
