@@ -70,6 +70,13 @@ void _Aarm::draw_lighted_smooth_shading()
     glScalef(0.1, 0.1, 2);
     body.draw_lighted_smooth_shading();
     glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0, 0.1, sinposition2);
+    glRotated(angulo, 0, 1, 0);
+    glTranslated(0, 0, headposition);
+    End.draw_lighted_smooth_shading();
+    glPopMatrix();
 }
 
 void _Aarm::draw_texture()
@@ -95,4 +102,6 @@ void _Aarm::update(float _step)
     }
     cosposition1 = cos(position_pivot1) / 2;
     sinposition2 = sin(position_pivot2) / 2;
+    headposition = 1.5 + cosposition1;
+    End.update();
 }

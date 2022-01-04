@@ -5,6 +5,7 @@
 #include "cilindro.h"
 #include "Abase.h"
 #include "math.h"
+#include "Aend.h"
 
 class _Aarm
 {
@@ -17,6 +18,8 @@ private:
 
     _Abase Base;
 
+    _Aend End;
+
     //De 0 a PI
 
     float position_pivot1;
@@ -26,6 +29,7 @@ private:
 
     float cosposition1;
     float sinposition2;
+    float headposition;
 
 public:
     _Aarm();
