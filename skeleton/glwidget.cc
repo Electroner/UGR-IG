@@ -811,14 +811,14 @@ void _gl_widget::build_lights()
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 		// glLoadIdentity();
-		GLfloat light_ambient[] = {1.0, 1.0, 1.0};
+		//GLfloat light_ambient[] = {1.0, 1.0, 1.0};
 		GLfloat light_position[] = {1.0, 1.0, 1.0, 0.0};
 		GLfloat light_diffuse[] = {0.7, 0.7, 0.7, 0.7};
 		GLfloat light_specular[] = {0.3, 0.3, 0.3, 0.3};
 		glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 		glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 		glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-		glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+		//glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 		glPopMatrix();
 	}
 	else
@@ -832,7 +832,7 @@ void _gl_widget::build_lights()
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 		// glLoadIdentity();
-		GLfloat light_ambient1[] = {1.0, 1.0, 1.0};
+		//GLfloat light_ambient1[] = {1.0, 1.0, 1.0};
 		GLfloat light_position1[] = {-1.0, -1.0, -1.0, 0.0};
 		GLfloat light_diffuse1[] = {0.0, 0.8, 0.3, 0.2};
 		GLfloat light_specular1[] = {0.1, 0.0, 0.3, 1.0};
@@ -842,13 +842,21 @@ void _gl_widget::build_lights()
 		glPopMatrix();
 		glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse1);
 		glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular1);
-		glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient1);
+		//glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient1);
 		glPopMatrix();
 	}
 	else
 	{
 		glDisable(GL_LIGHT1);
 	}
+	if(light0_enabled || light1_enabled){
+		glEnable(GL_LIGHTING);
+		GLfloat light_ambient[] = {1.0, 1.0, 1.0};
+		glLightfv(GL_LIGHTING, GL_AMBIENT, light_ambient);
+	}else{
+		glDisable(GL_LIGHTING);
+	}
+
 }
 
 void _gl_widget::build_material(string _material)
