@@ -157,7 +157,7 @@ void _Aend::draw_texture(){
     glPopMatrix();
 }
 
-void  _Aend::update(){
+void  _Aend::update(float _step){
     angulo = cos(position)*90;
     position -= 0.01;
     if(position <= -M_PI/2){

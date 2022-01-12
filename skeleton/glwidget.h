@@ -119,14 +119,14 @@ protected slots:
 private:
 	_window *Window;
 
-	_chess_board chess_board{0.5,8};
+	_chess_board chess_board{1,8};
 	_axis Axis;
 	_tetrahedron Tetrahedron;
 	_cube Cube;
 	_plyObj plyobj;
 	_revOBJ revOBJ{vector<_vertex3f>{_vertex3f(0, -0.5, 0), _vertex3f(0.5, -0.5, 0), _vertex3f(0, 0.5, 0)}, 10};
-	_Cilindro Cilindro;
-	_Esfera sphereOBJ{40,40};
+	_Cilindro Cilindro{50};
+	_Esfera sphereOBJ;
 	_revOBJ revFX;
 
 	_rueda wheel;
@@ -172,6 +172,12 @@ private:
 
 	float last_x;	//CONTROL RELATIVE POSITION MOUASE
 	float last_y;	
+
+	float animation_speed = 0.01;
+
+	int Window_width;
+  	int Window_height;
 };
 
 #endif
+//TODO: Esfera.cc 

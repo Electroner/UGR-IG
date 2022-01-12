@@ -108,14 +108,24 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
 		break;
 	case Qt::Key_PageUp:
 		Observer_distance *= 1.2;
+		if(reduction < 0.2)
+			reduction += 0.01;
 		break;
 	case Qt::Key_PageDown:
 		Observer_distance /= 1.2;
+		if(reduction > 0.01)
+			reduction -= 0.01;
 		break;
 
 	case Qt::Key_A:
 		animation = !animation;
 		set_animation();
+		break;
+	case Qt::Key_W:
+		animation_speed += 0.005;
+		break;
+	case Qt::Key_S:
+		animation_speed -= 0.005;
 		break;
 
 	case Qt::Key_J:
@@ -259,15 +269,16 @@ void _gl_widget::change_projection()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
+	float Aspect=(float)Window_height/(float)Window_width;
+
 	// formato(x_minimo,x_maximo, y_minimo, y_maximo,Front_plane, plano_traser)
 	// Front_plane>0  Back_plane>PlanoDelantero)
 	if (perspective)
 	{
-		glFrustum(X_MIN, X_MAX, Y_MIN, Y_MAX, FRONT_PLANE_PERSPECTIVE, BACK_PLANE_PERSPECTIVE);
+		glFrustum(X_MIN, X_MAX, Y_MIN*Aspect, Y_MAX*Aspect, FRONT_PLANE_PERSPECTIVE, BACK_PLANE_PERSPECTIVE);
 	}
 	else
 	{
-
 		glOrtho(X_MIN / reduction, X_MAX / reduction, Y_MIN / reduction, Y_MAX / reduction, FRONT_PLANE_PERSPECTIVE, BACK_PLANE_PERSPECTIVE);
 	}
 }
@@ -349,6 +360,10 @@ void _gl_widget::draw_objects()
 			rueda_eje.draw_point();
 			break;
 
+		case OBJECT_CHESS_BOARD:
+			chess_board.draw_point();
+			break;
+
 		case OBJECT_COMPASS:
 			Compass.draw_point();
 			break;
@@ -414,6 +429,10 @@ void _gl_widget::draw_objects()
 
 		case OBJECT_RUEDA_EJE:
 			rueda_eje.draw_line();
+			break;
+
+		case OBJECT_CHESS_BOARD:
+			chess_board.draw_line();
 			break;
 
 		case OBJECT_COMPASS:
@@ -482,6 +501,10 @@ void _gl_widget::draw_objects()
 			rueda_eje.draw_fill();
 			break;
 
+		case OBJECT_CHESS_BOARD:
+			chess_board.draw_fill();
+			break;
+
 		case OBJECT_COMPASS:
 			Compass.draw_fill();
 			break;
@@ -544,6 +567,10 @@ void _gl_widget::draw_objects()
 
 		case OBJECT_RUEDA_EJE:
 			rueda_eje.draw_chess();
+			break;
+
+		case OBJECT_CHESS_BOARD:
+			chess_board.draw_chess();
 			break;
 
 		case OBJECT_COMPASS:
@@ -612,6 +639,10 @@ void _gl_widget::draw_objects()
 
 		case OBJECT_RUEDA_EJE:
 			rueda_eje.draw_lighted_flat_shading();
+			break;
+		
+		case OBJECT_CHESS_BOARD:
+			chess_board.draw_lighted_flat_shading();
 			break;
 
 		case OBJECT_COMPASS:
@@ -683,6 +714,10 @@ void _gl_widget::draw_objects()
 			rueda_eje.draw_lighted_smooth_shading();
 			break;
 		
+		case OBJECT_CHESS_BOARD:
+			chess_board.draw_lighted_smooth_shading();
+			break;
+
 		case OBJECT_COMPASS:
 			Compass.draw_lighted_smooth_shading();
 			break;
@@ -799,7 +834,10 @@ void _gl_widget::paintGL()
 
 void _gl_widget::resizeGL(int Width1, int Height1)
 {
-	glViewport(0, 0, Width1, Height1);
+	Window_width=Width1;
+  	Window_height=Height1;
+
+	glViewport(0,0,Width1,Height1);
 }
 
 void _gl_widget::build_lights()
@@ -866,10 +904,8 @@ void _gl_widget::build_material(string _material)
 		glPushMatrix();
 		glMaterialfv(GL_FRONT, GL_AMBIENT, (GLfloat *)&NewMaterialsAmbient::PEARL);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat *)&NewMaterialsDiffuse::PEARL);
-		glMaterialfv(GL_FRONT, GL_SPECULAR,
-					 (GLfloat *)&NewMaterialsSpecular::PEARL);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS,
-					 (GLfloat *)&NewMaterialsShininess::PEARL);
+		glMaterialfv(GL_FRONT, GL_SPECULAR,(GLfloat *)&NewMaterialsSpecular::PEARL);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS,(GLfloat *)&NewMaterialsShininess::PEARL);
 		glPopMatrix();
 	}
 	if (_material == "BRASS")
@@ -877,10 +913,8 @@ void _gl_widget::build_material(string _material)
 		glPushMatrix();
 		glMaterialfv(GL_FRONT, GL_AMBIENT, (GLfloat *)&NewMaterialsAmbient::BRASS);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat *)&NewMaterialsDiffuse::BRASS);
-		glMaterialfv(GL_FRONT, GL_SPECULAR,
-					 (GLfloat *)&NewMaterialsSpecular::BRASS);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS,
-					 (GLfloat *)&NewMaterialsShininess::BRASS);
+		glMaterialfv(GL_FRONT, GL_SPECULAR,(GLfloat *)&NewMaterialsSpecular::BRASS);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS,(GLfloat *)&NewMaterialsShininess::BRASS);
 		glPopMatrix();
 	}
 	if (_material == "RUBY")
@@ -889,8 +923,7 @@ void _gl_widget::build_material(string _material)
 		glMaterialfv(GL_FRONT, GL_AMBIENT, (GLfloat *)&NewMaterialsAmbient::RUBY);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat *)&NewMaterialsDiffuse::RUBY);
 		glMaterialfv(GL_FRONT, GL_SPECULAR, (GLfloat *)&NewMaterialsSpecular::RUBY);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS,
-					 (GLfloat *)&NewMaterialsShininess::RUBY);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS,(GLfloat *)&NewMaterialsShininess::RUBY);
 		glPopMatrix();
 	}
 	if (_material == "LIME")
@@ -899,8 +932,7 @@ void _gl_widget::build_material(string _material)
 		glMaterialfv(GL_FRONT, GL_AMBIENT, (GLfloat *)&NewMaterialsAmbient::LIME);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat *)&NewMaterialsDiffuse::LIME);
 		glMaterialfv(GL_FRONT, GL_SPECULAR, (GLfloat *)&NewMaterialsSpecular::LIME);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS,
-					 (GLfloat *)&NewMaterialsShininess::LIME);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS,(GLfloat *)&NewMaterialsShininess::LIME);
 		glPopMatrix();
 	}
 }
@@ -924,11 +956,11 @@ void _gl_widget::tick()
 	{
 		angle_ligth = (angle_ligth < 360) ? angle_ligth += 5 : angle_ligth = 0;
 	}
-	Compass.update();
-	Arm.update();
-	End.update();
-	Tip.update();
-	Base.update();
+	Compass.update(animation_speed);
+	Arm.update(animation_speed);
+	End.update(animation_speed);
+	Tip.update(animation_speed);
+	Base.update(animation_speed);
 	update();
 }
 
@@ -968,8 +1000,8 @@ void _gl_widget::initializeGL()
 	Draw_fill = false;
 	Draw_chess = false;
 	Draw_flat_shading = false;
-	Draw_smooth_shading = true;
-	Draw_texture = false;
+	Draw_smooth_shading = false;
+	Draw_texture = true;
 	Draw_axis = true;
 
 	animation = false;
@@ -988,7 +1020,7 @@ void _gl_widget::initializeGL()
 	last_x = 0;
 	last_y = 0;
 
-	Object = OBJECT_COMPASS;
+	Object = OBJECT_CILINDRO;
 
 	QString File_name("./textures/earth.jpg");
 	QImageReader Reader(File_name);
@@ -1013,4 +1045,7 @@ void _gl_widget::initializeGL()
 
 	// Code to pass the image to OpenGL to form a texture 2D
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, Image.width(), Image.height(), 0, GL_RGB, GL_UNSIGNED_BYTE, Image.bits());
+
+	Window_width=width();
+  	Window_height=height();
 }

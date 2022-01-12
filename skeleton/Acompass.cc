@@ -52,8 +52,8 @@ void _Acompass::draw_texture()
     Arm.draw_texture();
 }
 
-void _Acompass::update()
+void _Acompass::update(float _step)
 {
-    Base.update();
-    Arm.update();
+    Base.update(_step);
+    Arm.update(_step);
 }

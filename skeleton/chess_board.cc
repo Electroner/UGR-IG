@@ -1,13 +1,14 @@
 #include "chess_board.h"
 
-_chess_board::_chess_board(float Size,unsigned int divisions1)
+_chess_board::_chess_board(float Size,unsigned int division)
 {
-    unsigned int rows=sqrt(divisions1), cols=rows, triangles=0, k=0;
+    unsigned int _division = pow(division,2);
+    unsigned int rows=sqrt(_division), cols=rows, triangles=0, k=0;
     float row, tex_size=1.0, tex_row;
 
-    Vertices.resize(4*divisions1);
-    Triangles.resize(2*divisions1);
-    Vertices_texture_coordinates.resize(4*divisions1);
+    Vertices.resize(4*_division);
+    Triangles.resize(2*_division);
+    Vertices_texture_coordinates.resize(4*_division);
 
     for(unsigned int i=0; i < rows; i++)
     {
@@ -34,9 +35,6 @@ _chess_board::_chess_board(float Size,unsigned int divisions1)
             triangles += 2;
         }
     }
-
-
-
 }
 
 void _chess_board::draw_texture()
@@ -52,7 +50,6 @@ void _chess_board::draw_texture()
         glVertex3fv((GLfloat *) &Vertices[Triangles[i]._1]);
         glTexCoord2f(Vertices_texture_coordinates[Triangles[i]._2].x, Vertices_texture_coordinates[Triangles[i]._2].y);
         glVertex3fv((GLfloat *) &Vertices[Triangles[i]._2]);
-
     }
     glEnd();
     glDisable(GL_TEXTURE_2D);

@@ -136,6 +136,6 @@ void _Atip::draw_texture(){
     glPopMatrix();
 }
 
-void _Atip::update(){
+void _Atip::update(float _step){
 
 }

@@ -214,6 +214,6 @@ void _Abase::draw_texture(){
     glPopMatrix();
 }
 
-void _Abase::update(){
+void _Abase::update(float _step){
 
 }

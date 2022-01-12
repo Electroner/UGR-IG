@@ -23,7 +23,7 @@ public:
     void draw_lighted_smooth_shading();
     void draw_texture();
 
-    void update();
+    void update(float _step=0.01);
 
 };
 
