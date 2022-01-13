@@ -126,7 +126,7 @@ private:
 	_plyObj plyobj;
 	_revOBJ revOBJ{vector<_vertex3f>{_vertex3f(0, -0.5, 0), _vertex3f(0.5, -0.5, 0), _vertex3f(0, 0.5, 0)}, 10};
 	_Cilindro Cilindro{50};
-	_Esfera sphereOBJ{40,40};
+	_Esfera sphereOBJ{3,3};
 	_revOBJ revFX;
 
 	_rueda wheel;
@@ -177,6 +177,8 @@ private:
 
 	int Window_width;
   	int Window_height;
+
+	int sizeSphere = 3;
 };
 
 #endif

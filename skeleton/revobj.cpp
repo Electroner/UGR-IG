@@ -67,6 +67,9 @@ void _revOBJ::SelectRotationAxis(AxisRotation _axis)
 void _revOBJ::ChangeProfile(vector<_vertex3f> _pLine)
 {
 	this->pLine.clear();
+	this->pLine.clear();
+	this->revobj_texture_coordinates.clear();
+	this->lateral.clear();
 	this->pLine.reserve(_pLine.size());
 	for (int i = 0; i < static_cast<int>(_pLine.size()); i++)
 	{
@@ -82,6 +85,10 @@ void _revOBJ::ChangeREV(vector<_vertex3f> _pLine, int _n)
 	{
 		this->n = _n;
 		this->pLine.clear();
+		this->revobj_texture_coordinates.clear();
+		this->lateral.clear();
+		this->Vertices.clear();
+		this->Triangles.clear();
 		this->pLine.reserve(_pLine.size());
 		for (int i = 0; i < static_cast<int>(_pLine.size()); i++)
 		{
@@ -99,6 +106,8 @@ void _revOBJ::ChangeOBJ(vector<_vertex3f> _pLine, int _n, AxisRotation _axis)
 		this->n = _n;
 		this->axis_selection = _axis;
 		this->pLine.clear();
+		this->revobj_texture_coordinates.clear();
+		this->lateral.clear();
 		this->pLine.reserve(_pLine.size());
 		for (int i = 0; i < static_cast<int>(_pLine.size()); i++)
 		{
@@ -133,6 +142,7 @@ void _revOBJ::function_revobj(float (*_fx)(float _x),float _min,float _max,float
 
 void _revOBJ::Construct()
 {
+	this->verticeseje = 0;
 	int suppos = 0;
 	int infpos = 0;
 	_vertex3f inferior = (1000000.0);
@@ -160,7 +170,7 @@ void _revOBJ::Construct()
 			verticeseje++;
 		}
 	}
-
+	
 	lateral.reserve((pLine.size() - verticeseje));
 	for (int i = 0; i < static_cast<int>(pLine.size()); i++)
 	{
@@ -171,7 +181,7 @@ void _revOBJ::Construct()
 	}
 
 	/* VERTICES */
-
+	
 	localVertices.reserve(lateral.size() * getN());
 	for (int i = 0; i < this->getN(); i++)
 	{

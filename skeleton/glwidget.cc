@@ -961,6 +961,8 @@ void _gl_widget::tick()
 	End.update(animation_speed);
 	Tip.update(animation_speed);
 	Base.update(animation_speed);
+	//sphereOBJ.Recalc(sizeSphere,sizeSphere);
+	//sizeSphere++;
 	update();
 }
 
@@ -996,12 +998,12 @@ void _gl_widget::initializeGL()
 	Observer_distance = DEFAULT_DISTANCE;
 
 	Draw_point = false;
-	Draw_line = false;
+	Draw_line = true;
 	Draw_fill = false;
 	Draw_chess = false;
 	Draw_flat_shading = false;
 	Draw_smooth_shading = false;
-	Draw_texture = true;
+	Draw_texture = false;
 	Draw_axis = true;
 
 	animation = false;
@@ -1020,7 +1022,7 @@ void _gl_widget::initializeGL()
 	last_x = 0;
 	last_y = 0;
 
-	Object = OBJECT_CILINDRO;
+	Object = OBJECT_SPHERE;
 
 	QString File_name("./textures/earth.jpg");
 	QImageReader Reader(File_name);

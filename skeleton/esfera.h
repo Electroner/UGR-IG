@@ -12,6 +12,7 @@ class _Esfera:public _revOBJ{
         _Esfera();
         _Esfera(int n);
         _Esfera(int n,int k);
+        void Recalc(int n,int k);
 };
 
 #endif
