@@ -275,7 +275,7 @@ void _gl_widget::change_projection()
 	// Front_plane>0  Back_plane>PlanoDelantero)
 	if (perspective)
 	{
-		glFrustum(X_MIN, X_MAX, Y_MIN*Aspect, Y_MAX*Aspect, FRONT_PLANE_PERSPECTIVE, BACK_PLANE_PERSPECTIVE);
+		glFrustum(X_MIN, X_MAX, Y_MIN*Aspect, Y_MAX*Aspect, FRONT_PLANE_PERSPECTIVE, BACK_PLANE_PERSPECTIVE*5);
 	}
 	else
 	{
