@@ -961,8 +961,6 @@ void _gl_widget::tick()
 	End.update(animation_speed);
 	Tip.update(animation_speed);
 	Base.update(animation_speed);
-	//sphereOBJ.Recalc(sizeSphere,sizeSphere);
-	//sizeSphere++;
 	update();
 }
 
